@@ -1,8 +1,8 @@
 /**
+ * 
  * Shared FISE Rules Configuration
  *
- * This file defines the rules used by both frontend and backend for each demo.
- * IMPORTANT: Keep this file synchronized between client and server!
+ * IMPORTANT: The purpose of this file is for samples and demo only. Do not copy this file to your code.
  */
 
 import { FiseBuilder } from 'fise'
