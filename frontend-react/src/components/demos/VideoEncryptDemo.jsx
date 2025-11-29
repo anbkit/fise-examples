@@ -14,7 +14,7 @@ export default function VideoEncryptDemo({
 	downloadingVideo,
 	setDownloadingVideo
 }) {
-	const [videoUrl, setVideoUrl] = useState("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+	const [videoUrl, setVideoUrl] = useState("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
 
 	// Helper to get current timestamp
 	const getTimestamp = () => Math.floor(Date.now() / 60000);
@@ -368,16 +368,14 @@ export default function VideoEncryptDemo({
 					/>
 
 				</div>
-				{(loading || downloadingVideo) && encryptionProgress > 0 && (
-					<div className="mt-2">
-						<div className="w-full h-5 bg-progressBg rounded-[10px] overflow-hidden">
-							<div
-								className="h-full bg-gradient-to-r from-success to-successLight transition-all duration-300 ease-in-out flex items-center justify-center text-white text-xs font-bold"
-								style={{ width: `${encryptionProgress}%` }}
-							>
-								{Math.round(encryptionProgress)}%
-							</div>
-						</div>
+				{downloadingVideo && (
+					<div className="mt-2 text-infoDark font-semibold">
+						Downloading...
+					</div>
+				)}
+				{loading && !downloadingVideo && (
+					<div className="mt-2 text-infoDark font-semibold">
+						Encrypting...
 					</div>
 				)}
 			</div>
@@ -388,7 +386,7 @@ export default function VideoEncryptDemo({
 					onClick={downloadAndEncryptVideo}
 					disabled={loading || downloadingVideo || !videoUrl || !videoUrl.trim()}
 				>
-					{loading || downloadingVideo ? "Downloading & Encrypting..." : "Download & Encrypt Video"}
+					{downloadingVideo ? "Downloading..." : loading ? "Encrypting..." : "Download & Encrypt Video"}
 				</button>
 				{videoEncryptionResult && !videoEncryptionResult.decryptedBlobUrl && (
 					<button
@@ -417,18 +415,6 @@ export default function VideoEncryptDemo({
 				)}
 			</div>
 
-			{loading && encryptionProgress > 0 && !downloadingVideo && (
-				<div className="mt-4">
-					<div className="w-full h-5 bg-progressBg rounded-[10px] overflow-hidden">
-						<div
-							className="h-full bg-gradient-to-r from-infoDark to-infoLight transition-all duration-300 ease-in-out flex items-center justify-center text-white text-xs font-bold"
-							style={{ width: `${encryptionProgress}%` }}
-						>
-							{Math.round(encryptionProgress)}%
-						</div>
-					</div>
-				</div>
-			)}
 
 			{error && (
 				<div className="mt-4 p-4 bg-errorBg border-2 border-error rounded-lg text-error">
