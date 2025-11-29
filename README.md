@@ -46,7 +46,7 @@ npm run build:backend
 vercel --prod
 ```
 
-> **Note:** Please refer to the sample backend code, `examples/shared-rules.js` file, and demo implementations for complete examples.
+> **Note:** Please refer to the sample backend code, `shared/src/shared-rules.js` file, and demo implementations for complete examples.
 
 **Live Test:**
 ```bash

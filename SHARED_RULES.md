@@ -166,7 +166,7 @@ const plaintext = decryptFise(
 
 To add a new rule configuration:
 
-1. **Define the rule** in `examples/shared-rules.js`:
+1. **Define the rule** in `shared/src/shared-rules.js`:
 ```javascript
 export const myNewRules = FiseBuilder.custom()
   .withSaltRange(20, 50)
@@ -276,7 +276,7 @@ console.assert(decrypted === plaintext, 'Rules must be reversible!')
 **Problem:** Cannot find module `@fise-examples/shared`
 
 **Solution:**
-1. Ensure you've run `npm install` in the examples directory to link workspace packages
+1. Ensure you've run `npm install` at the root directory to link workspace packages
 2. Import from `@fise-examples/shared` instead of relative paths
 3. Both backend and frontend use the same import: `import { getRulesForDemo } from '@fise-examples/shared'`
 

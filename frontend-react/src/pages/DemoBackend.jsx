@@ -40,17 +40,20 @@ function DemoBackend() {
 				<div className="text-center mb-12">
 					<h1 className="text-4xl md:text-3xl font-bold mb-4 bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">Interactive Live Demo</h1>
 					<p className="text-lg text-gray max-w-[700px] mx-auto">
-						Connect to the Fastify backend and see FISE encryption
-						in action.
+						This interactive demo showcases FISE encryption in action.
 					</p>
-					<div className="bg-warningBg border-l-4 border-warning p-4 rounded-lg mt-4 max-w-[700px] mx-auto">
-						<strong>Make sure the backend is running:</strong>
-						<pre className="my-2 mt-2 text-sm bg-black/10 p-2 rounded">
-							cd examples/backend-fastify && npm install && npm
-							run dev
-						</pre>
-						<p className="text-sm text-gray mt-2 mb-0">
-							<strong>Note:</strong> Please refer to the sample backend code, <code className="bg-black/10 px-1 rounded">examples/shared-rules.js</code> file, and demo implementations for complete examples.
+					<div className="bg-infoBg border-l-4 border-info p-4 rounded-lg mt-4 max-w-[700px] mx-auto">
+						<p className="text-sm text-dark mb-0">
+							View the source code demo implementation for the frontend, backend, and shared rules on{" "}
+							<a
+								href="https://github.com/anbkit/fise-examples"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-primary hover:underline font-semibold"
+							>
+								GitHub
+							</a>
+							.
 						</p>
 					</div>
 				</div>

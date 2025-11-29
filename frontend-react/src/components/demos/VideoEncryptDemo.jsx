@@ -381,21 +381,28 @@ export default function VideoEncryptDemo({
 			</div>
 
 			<div className="flex gap-4 flex-wrap">
-				<button
-					className="inline-block px-6 py-3 rounded-lg font-semibold text-base border-none cursor-pointer bg-primary text-white active:opacity-[0.8] md:w-full md:text-center disabled:opacity-50 disabled:cursor-not-allowed"
-					onClick={downloadAndEncryptVideo}
-					disabled={loading || downloadingVideo || !videoUrl || !videoUrl.trim()}
-				>
-					{downloadingVideo ? "Downloading..." : loading ? "Encrypting..." : "Download & Encrypt Video"}
-				</button>
-				{videoEncryptionResult && !videoEncryptionResult.decryptedBlobUrl && (
+				{!videoEncryptionResult && (
 					<button
-						className="inline-block px-6 py-3 rounded-lg font-semibold text-base cursor-pointer bg-primary text-white border-none active:opacity-[0.8] md:w-full md:text-center disabled:opacity-50 disabled:cursor-not-allowed"
-						onClick={decryptVideo}
-						disabled={loading}
+						className="inline-block px-6 py-3 rounded-lg font-semibold text-base border-none cursor-pointer bg-primary text-white active:opacity-[0.8] md:w-full md:text-center disabled:opacity-50 disabled:cursor-not-allowed"
+						onClick={downloadAndEncryptVideo}
+						disabled={loading || downloadingVideo || !videoUrl || !videoUrl.trim()}
 					>
-						{loading ? "Decrypting..." : "Decrypt Video"}
+						{downloadingVideo ? "Downloading..." : loading ? "Encrypting..." : "Download & Encrypt Video"}
 					</button>
+				)}
+				{videoEncryptionResult && !videoEncryptionResult.decryptedBlobUrl && (
+					<>
+						<div className="w-full px-6 py-3 rounded-lg font-semibold text-base bg-successBg text-successDark border-2 border-success">
+							Downloaded and Encrypted
+						</div>
+						<button
+							className="inline-block px-6 py-3 rounded-lg font-semibold text-base cursor-pointer bg-primary text-white border-none active:opacity-[0.8] md:w-full md:text-center disabled:opacity-50 disabled:cursor-not-allowed"
+							onClick={decryptVideo}
+							disabled={loading}
+						>
+							{loading ? "Decrypting..." : "Decrypt Video"}
+						</button>
+					</>
 				)}
 				{videoEncryptionResult && (
 					<button
