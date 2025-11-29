@@ -100,7 +100,7 @@ export const storageRules = FiseBuilder.lengthBased()
  * 
  * Performance optimizations:
  * - Fixed salt length (20 bytes) eliminates salt range search loop
- * - Offset bounded to 10MB provides good security while maintaining fast decryption
+ * - Offset bounded to 2MB provides good security while maintaining fast decryption
  * 
  * Security features:
  * - Custom encodeLength/decodeLength: Uses 100 bytes with obfuscation instead of standard 2-byte encoding
@@ -177,7 +177,7 @@ export const videoRules = {
     offset(cipherText, ctx) {
         // Fast offset calculation optimized for large chunks
         // For large data: bound to 10MB for security while maintaining performance
-        const MAX_OFFSET = 10 * 1024 * 1024; // 10MB maximum - good security for large data
+        const MAX_OFFSET = 2 * 1024 * 1024; // 2MB maximum - good security for large data
         const len = cipherText.length || 1
         const chunkIndex = ctx.chunkIndex ?? 0
         const calculatedOffset = (chunkIndex * 7 + len * 3) % len
