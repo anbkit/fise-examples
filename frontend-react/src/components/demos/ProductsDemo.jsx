@@ -1,4 +1,4 @@
-import { decryptFise, xorCipher } from "fise";
+import { fiseDecrypt } from "fise";
 import { getRulesForDemo, RULES_METADATA } from "@fise-examples/shared";
 import { API_BASE } from "../../config.ts";
 

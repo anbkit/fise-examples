@@ -1,4 +1,4 @@
-import { encryptFise, xorCipher } from 'fise';
+import { fiseEncrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 
 export default function registerProducts(fastify) {
@@ -12,16 +12,14 @@ export default function registerProducts(fastify) {
 
         // Encrypt name and price for each product individually using product_id in metadata
         const encryptedProducts = products.map(product => {
-            const encryptedName = encryptFise(
+            const encryptedName = fiseEncrypt(
                 product.name,
-                xorCipher,
                 getRulesForDemo('products'),
                 { metadata: { productId: product.id } }
             );
 
-            const encryptedPrice = encryptFise(
+            const encryptedPrice = fiseEncrypt(
                 product.price.toString(),
-                xorCipher,
                 getRulesForDemo('products'),
                 { metadata: { productId: product.id } }
             );

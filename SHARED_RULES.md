@@ -106,17 +106,15 @@ FiseBuilder.lengthBased().withSaltRange(15, 35)
 import { getRulesForDemo } from '@fise-examples/shared'
 
 // Encrypt user data
-const encrypted = encryptFise(
+const encrypted = fiseEncrypt(
   JSON.stringify(userData),
-  xorCipher,
   getRulesForDemo('user-data'),
   { timestamp: getTimestamp() }
 )
 
 // Decrypt form data
-const decrypted = decryptFise(
+const decrypted = fiseDecrypt(
   encryptedData,
-  xorCipher,
   getRulesForDemo('form'),
   { timestamp: getTimestamp() }
 )
@@ -128,9 +126,8 @@ const decrypted = decryptFise(
 import { getRulesForDemo, RULES_METADATA } from '@fise-examples/shared'
 
 // Decrypt API response
-const plaintext = decryptFise(
+const plaintext = fiseDecrypt(
   data,
-  xorCipher,
   getRulesForDemo('user-data'),
   { timestamp: getTimestamp() }
 )
@@ -196,9 +193,8 @@ export const RULES_METADATA = {
 
 4. **Use in backend**:
 ```javascript
-const encrypted = encryptFise(
+const encrypted = fiseEncrypt(
   data,
-  xorCipher,
   getRulesForDemo('my-demo'),
   { timestamp: getTimestamp() }
 )
@@ -206,9 +202,8 @@ const encrypted = encryptFise(
 
 5. **Use in frontend**:
 ```javascript
-const decrypted = decryptFise(
+const decrypted = fiseDecrypt(
   encrypted,
-  xorCipher,
   getRulesForDemo('my-demo'),
   { timestamp: getTimestamp() }
 )
@@ -241,11 +236,11 @@ const plaintext = 'test data'
 const rules = getRulesForDemo('user-data')
 const timestamp = Math.floor(Date.now() / 60000)
 
-const encrypted = encryptFise(plaintext, xorCipher, rules, {
+const encrypted = fiseEncrypt(plaintext, rules, {
   timestamp: timestamp
 })
 
-const decrypted = decryptFise(encrypted, xorCipher, rules, {
+const decrypted = fiseDecrypt(encrypted, rules, {
   timestamp: timestamp
 })
 

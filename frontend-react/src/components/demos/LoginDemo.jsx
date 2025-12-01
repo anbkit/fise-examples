@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { encryptFise, decryptFise, xorCipher } from "fise";
+import { fiseEncrypt, fiseDecrypt } from "fise";
 import { getRulesForDemo, RULES_METADATA } from "@fise-examples/shared";
 import { API_BASE } from "../../config.ts";
 
@@ -34,9 +34,8 @@ export default function LoginDemo({ loading, setLoading, setError, setResult }) 
 			};
 
 			// Encrypt credentials before sending using session-based login rules
-			const encryptedCredentials = encryptFise(
+			const encryptedCredentials = fiseEncrypt(
 				JSON.stringify(credentials),
-				xorCipher,
 				getRulesForDemo("login-session"),
 				{
 					timestamp: getTimestamp(),
@@ -60,9 +59,8 @@ export default function LoginDemo({ loading, setLoading, setError, setResult }) 
 			const { token } = await response.json();
 
 			// Decrypt the token to show its contents using session-based login rules
-			const plaintext = decryptFise(
+			const plaintext = fiseDecrypt(
 				token,
-				xorCipher,
 				getRulesForDemo("login-session"),
 				{
 					timestamp: getTimestamp(),

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { encryptFise, decryptFise, xorCipher } from 'fise';
+import { fiseEncrypt, fiseDecrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 import { getTimestamp, JWT_SECRET, JWT_EXPIRES_IN } from '../utils/constants.js';
 
@@ -19,7 +19,7 @@ export default function registerAuthLogin(fastify) {
 
         try {
             // Decrypt the incoming credentials using session-based login rules
-            const decrypted = decryptFise(data, xorCipher, getRulesForDemo('login-session'), {
+            const decrypted = fiseDecrypt(data, getRulesForDemo('login-session'), {
                 timestamp: getTimestamp(),
                 metadata: { sessionId: sessionId }
             });
@@ -61,9 +61,8 @@ export default function registerAuthLogin(fastify) {
                 };
 
                 // Encrypt the entire response (including JWT) with session-based FISE rules
-                const encryptedResponse = encryptFise(
+                const encryptedResponse = fiseEncrypt(
                     JSON.stringify(responseData),
-                    xorCipher,
                     getRulesForDemo('login-session'),
                     {
                         timestamp: getTimestamp(),

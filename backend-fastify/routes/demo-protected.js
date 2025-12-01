@@ -1,4 +1,4 @@
-import { encryptFise, xorCipher } from 'fise';
+import { fiseEncrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 
 const getTimestamp = () => Math.floor(Date.now() / 60000);
@@ -11,9 +11,8 @@ export default function registerDemoProtected(fastify) {
             internalId: 'internal_12345'
         };
 
-        const encrypted = encryptFise(
+        const encrypted = fiseEncrypt(
             JSON.stringify(payload),
-            xorCipher,
             getRulesForDemo('comparison'),
             { timestamp: getTimestamp() }
         );

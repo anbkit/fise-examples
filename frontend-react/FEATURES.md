@@ -90,9 +90,10 @@ Complete React website for FISE with live backend integration, interactive demos
    - Keyless Design philosophy
 
 3. **API Reference**
-   - encryptFise() signature
-   - decryptFise() signature
-   - xorCipher details
+   - fiseEncrypt() signature
+   - fiseDecrypt() signature
+   - fiseBinaryEncrypt() signature
+   - fiseBinaryDecrypt() signature
    - FiseBuilder methods
    - TypeScript types
 

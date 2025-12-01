@@ -31,7 +31,7 @@ export const authRules = FiseBuilder.timestamp()
  * 
  * Usage: Pass sessionId in metadata when encrypting/decrypting
  * @example
- * encryptFise(data, cipher, sessionLoginRules, { 
+ * fiseEncrypt(data, sessionLoginRules, { 
  *   timestamp: getTimestamp(),
  *   metadata: { sessionId: 'abc123' } 
  * })
@@ -196,7 +196,7 @@ export const videoRules = {
  * 
  * Usage: Pass productId in metadata when encrypting/decrypting
  * @example
- * encryptFise(data, cipher, productRules, { metadata: { productId: 123 } })
+ * fiseEncrypt(data, productRules, { metadata: { productId: 123 } })
  */
 export const productRules = FiseBuilder.lengthBased()
     .withSaltRange(15, 50)

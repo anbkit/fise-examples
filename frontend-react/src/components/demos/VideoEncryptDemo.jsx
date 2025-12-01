@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { encryptBinaryFise, decryptBinaryFise, xorBinaryCipher } from "fise";
+import { fiseBinaryEncrypt, fiseBinaryDecrypt } from "fise";
 import { getRulesForDemo, RULES_METADATA } from "@fise-examples/shared";
 
 export default function VideoEncryptDemo({
@@ -86,18 +86,16 @@ export default function VideoEncryptDemo({
 			const rules = getRulesForDemo("video");
 			const timestamp = getTimestamp();
 			const [encryptedHeadBinary, encryptedTailBinary] = await Promise.all([
-				encryptBinaryFise(
+				fiseBinaryEncrypt(
 					headBinary,
-					xorBinaryCipher,
 					rules,
 					{
 						timestamp,
 						metadata: { part: 'head' }
 					}
 				),
-				encryptBinaryFise(
+				fiseBinaryEncrypt(
 					tailBinary,
-					xorBinaryCipher,
 					rules,
 					{
 						timestamp,
@@ -238,18 +236,16 @@ export default function VideoEncryptDemo({
 
 			const decryptStartTime = performance.now();
 			const [decryptedHeadBinary, decryptedTailBinary] = await Promise.all([
-				decryptBinaryFise(
+				fiseBinaryDecrypt(
 					encryptedHeadBinary,
-					xorBinaryCipher,
 					rules,
 					{
 						timestamp,
 						metadata: { part: 'head' }
 					}
 				),
-				decryptBinaryFise(
+				fiseBinaryDecrypt(
 					encryptedTailBinary,
-					xorBinaryCipher,
 					rules,
 					{
 						timestamp,

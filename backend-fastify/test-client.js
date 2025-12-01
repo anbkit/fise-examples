@@ -3,7 +3,7 @@
  * Run this after starting the server to see FISE in action
  */
 
-import { decryptFise, encryptFise, xorCipher, FiseBuilder } from 'fise';
+import { fiseDecrypt, fiseEncrypt, FiseBuilder } from 'fise';
 
 // Must match backend rules!
 const clientRules = FiseBuilder.defaults()
@@ -36,7 +36,7 @@ async function testProtectedUserData() {
     console.log('🔒 Encrypted response:', data);
 
     // Decrypt the response (using current timestamp)
-    const plaintext = decryptFise(data, xorCipher, clientRules, {
+    const plaintext = fiseDecrypt(data, clientRules, {
         timestamp: getTimestamp()
     });
 
@@ -51,7 +51,7 @@ async function testProductList() {
 
     console.log('🔒 Encrypted response length:', data.length, 'chars');
 
-    const plaintext = decryptFise(data, xorCipher, clientRules, {
+    const plaintext = fiseDecrypt(data, clientRules, {
         timestamp: getTimestamp()
     });
 
@@ -70,7 +70,7 @@ async function testGenerateKey() {
     const { data } = await response.json();
     console.log('🔒 Encrypted key data:', data.substring(0, 50) + '...');
 
-    const plaintext = decryptFise(data, xorCipher, clientRules, {
+    const plaintext = fiseDecrypt(data, clientRules, {
         timestamp: getTimestamp()
     });
 
@@ -88,9 +88,8 @@ async function testSubmitForm() {
     };
 
     // Encrypt the form data before sending
-    const encrypted = encryptFise(
+    const encrypted = fiseEncrypt(
         JSON.stringify(formData),
-        xorCipher,
         clientRules,
         { timestamp: getTimestamp() }
     );
@@ -106,7 +105,7 @@ async function testSubmitForm() {
     const { data: encryptedResult } = await response.json();
 
     // Decrypt the confirmation
-    const confirmationText = decryptFise(encryptedResult, xorCipher, clientRules, {
+    const confirmationText = fiseDecrypt(encryptedResult, clientRules, {
         timestamp: getTimestamp()
     });
 
@@ -133,7 +132,7 @@ async function testLogin() {
         console.log('🔒 Encrypted token:', token.substring(0, 50) + '...');
 
         // Decrypt the token to see what's inside
-        const tokenText = decryptFise(token, xorCipher, clientRules, {
+        const tokenText = fiseDecrypt(token, clientRules, {
             timestamp: getTimestamp()
         });
 
@@ -151,7 +150,7 @@ async function testProtectedResource(token) {
     const response = await fetch(`${BASE_URL}/api/limited-resource?token=${encodeURIComponent(token)}`);
     const { data } = await response.json();
 
-    const plaintext = decryptFise(data, xorCipher, clientRules, {
+    const plaintext = fiseDecrypt(data, clientRules, {
         timestamp: getTimestamp()
     });
 
@@ -167,7 +166,7 @@ async function testAnalytics() {
 
     console.log('🔒 Encrypted analytics length:', data.length, 'chars');
 
-    const plaintext = decryptFise(data, xorCipher, clientRules, {
+    const plaintext = fiseDecrypt(data, clientRules, {
         timestamp: getTimestamp()
     });
 
@@ -200,7 +199,7 @@ async function compareProtection() {
     console.log('   ✓ Obscured! Harder to reverse engineer!');
 
     // Decrypt to show it's the same data
-    const decrypted = decryptFise(data, xorCipher, clientRules, {
+    const decrypted = fiseDecrypt(data, clientRules, {
         timestamp: getTimestamp()
     });
     console.log('   Decrypted:', JSON.parse(decrypted));

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { decryptFise, xorCipher } from "fise";
+import { fiseDecrypt } from "fise";
 import { getRulesForDemo, RULES_METADATA } from "@fise-examples/shared";
 import { API_BASE } from "../../config.ts";
 
@@ -20,9 +20,8 @@ export default function UserDataDemo({ loading, setLoading, setError, setResult 
 			const { data } = await response.json();
 
 			// Decrypt the response using user-data rules
-			const plaintext = decryptFise(
+			const plaintext = fiseDecrypt(
 				data,
-				xorCipher,
 				getRulesForDemo("user-data"),
 				{
 					timestamp: getTimestamp(),

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { encryptFise, decryptFise, xorCipher } from "fise";
+import { fiseEncrypt, fiseDecrypt } from "fise";
 import { getRulesForDemo, RULES_METADATA } from "@fise-examples/shared";
 import { API_BASE } from "../../config.ts";
 
@@ -25,9 +25,8 @@ export default function FormDemo({ loading, setLoading, setError, setResult }) {
             };
 
             // Encrypt form data before sending using form rules
-            const encrypted = encryptFise(
+            const encrypted = fiseEncrypt(
                 JSON.stringify(formData),
-                xorCipher,
                 getRulesForDemo("form"),
                 { timestamp: getTimestamp() }
             );
@@ -45,9 +44,8 @@ export default function FormDemo({ loading, setLoading, setError, setResult }) {
             const { data } = await response.json();
 
             // Decrypt the response using form rules
-            const plaintext = decryptFise(
+            const plaintext = fiseDecrypt(
                 data,
-                xorCipher,
                 getRulesForDemo("form"),
                 {
                     timestamp: getTimestamp(),

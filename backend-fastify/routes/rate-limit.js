@@ -1,4 +1,4 @@
-import { encryptFise, decryptFise, xorCipher } from 'fise';
+import { fiseEncrypt, fiseDecrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 import { getTimestamp } from '../utils/constants.js';
 
@@ -13,7 +13,7 @@ export default function registerRateLimit(fastify) {
 
         try {
             // Decrypt and validate the token using auth rules
-            const decrypted = decryptFise(token, xorCipher, getRulesForDemo('login'), {
+            const decrypted = fiseDecrypt(token, getRulesForDemo('login'), {
                 timestamp: getTimestamp()
             });
 
@@ -32,9 +32,8 @@ export default function registerRateLimit(fastify) {
                 accessedAt: new Date().toISOString()
             };
 
-            const encrypted = encryptFise(
+            const encrypted = fiseEncrypt(
                 JSON.stringify(resource),
-                xorCipher,
                 getRulesForDemo('user-data'),
                 { timestamp: getTimestamp() }
             );

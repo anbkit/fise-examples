@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
-import { decryptFise, xorCipher } from "fise";
+import { fiseDecrypt } from "fise";
 import { getRulesForDemo } from "@fise-examples/shared";
 
 // Helper function to decrypt a single product item
 const decryptProductItem = (encryptedProduct) => {
 	try {
-		const decryptedName = decryptFise(
+		const decryptedName = fiseDecrypt(
 			encryptedProduct.name,
-			xorCipher,
 			getRulesForDemo("products"),
 			{ metadata: { productId: encryptedProduct.id } }
 		);
 
-		const decryptedPrice = decryptFise(
+		const decryptedPrice = fiseDecrypt(
 			encryptedProduct.price,
-			xorCipher,
 			getRulesForDemo("products"),
 			{ metadata: { productId: encryptedProduct.id } }
 		);

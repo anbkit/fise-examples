@@ -1,4 +1,4 @@
-import { encryptFise, xorCipher } from 'fise';
+import { fiseEncrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 import { getTimestamp } from '../utils/constants.js';
 
@@ -20,9 +20,8 @@ export default function registerAnalytics(fastify) {
             }))
         };
 
-        const encrypted = encryptFise(
+        const encrypted = fiseEncrypt(
             JSON.stringify(analytics),
-            xorCipher,
             getRulesForDemo('analytics'),
             { timestamp: getTimestamp() }
         );

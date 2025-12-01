@@ -1,4 +1,4 @@
-import { encryptFise, xorCipher } from 'fise';
+import { fiseEncrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 import { getTimestamp } from '../utils/constants.js';
 
@@ -22,9 +22,8 @@ export default function registerApiKey(fastify) {
             permissions: ['read', 'write']
         };
 
-        const encrypted = encryptFise(
+        const encrypted = fiseEncrypt(
             JSON.stringify(keyData),
-            xorCipher,
             getRulesForDemo('api-key'),
             { timestamp: getTimestamp() }
         );

@@ -32,11 +32,11 @@ function Home() {
 							<pre className="bg-codeBg text-codeText p-5 rounded-lg overflow-x-auto text-sm leading-normal font-mono text-[0.85rem] max-w-[700px] mx-auto">
 								{`npm install fise
 
-import { encryptFise, decryptFise, xorCipher, FiseBuilder } from 'fise'
+import { fiseEncrypt, fiseDecrypt, FiseBuilder } from 'fise'
 
 const rules = FiseBuilder.defaults().build()
-const encrypted = encryptFise('secret data', xorCipher, rules)
-const decrypted = decryptFise(encrypted, xorCipher, rules)`}
+const encrypted = fiseEncrypt('secret data', rules)
+const decrypted = fiseDecrypt(encrypted, rules)`}
 							</pre>
 						</div>
 					</div>
@@ -72,9 +72,8 @@ const decrypted = decryptFise(encrypted, xorCipher, rules)`}
 								Pass your plaintext, cipher function, and rules. FISE handles the rest.
 							</p>
 							<pre className="bg-codeBg text-codeText p-5 rounded-lg overflow-x-auto text-sm leading-normal font-mono">
-								{`const encrypted = encryptFise(
+								{`const encrypted = fiseEncrypt(
   'sensitive data',
-  xorCipher,
   rules
 )`}
 							</pre>
@@ -89,9 +88,8 @@ const decrypted = decryptFise(encrypted, xorCipher, rules)`}
 								Use the same rules to decrypt. Works across all platforms.
 							</p>
 							<pre className="bg-codeBg text-codeText p-5 rounded-lg overflow-x-auto text-sm leading-normal font-mono">
-								{`const decrypted = decryptFise(
+								{`const decrypted = fiseDecrypt(
   encrypted,
-  xorCipher,
   rules
 )`}
 							</pre>

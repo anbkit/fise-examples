@@ -13,6 +13,6 @@
     "dev": "echo 'Shared package has no dev server'"
   },
   "dependencies": {
-    "fise": "^0.1.4"
+    "fise": "^0.1.5"
   }
 }

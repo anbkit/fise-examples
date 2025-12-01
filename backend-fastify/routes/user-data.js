@@ -1,4 +1,4 @@
-import { encryptFise, xorCipher } from 'fise';
+import { fiseEncrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 import { getTimestamp } from '../utils/constants.js';
 
@@ -19,7 +19,7 @@ export default function registerUserData(fastify) {
 
         // Encrypt the response with FISE using user-data rules
         const plaintext = JSON.stringify(userData);
-        const encrypted = encryptFise(plaintext, xorCipher, getRulesForDemo('user-data'), {
+        const encrypted = fiseEncrypt(plaintext, getRulesForDemo('user-data'), {
             timestamp: getTimestamp()
         });
 

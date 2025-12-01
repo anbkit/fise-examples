@@ -1,4 +1,4 @@
-import { encryptFise, decryptFise, xorCipher } from 'fise';
+import { fiseEncrypt, fiseDecrypt } from 'fise';
 import { getRulesForDemo } from '@fise-examples/shared';
 import { getTimestamp } from '../utils/constants.js';
 
@@ -13,7 +13,7 @@ export default function registerFormSubmit(fastify) {
 
         try {
             // Decrypt the incoming data (client uses form rules)
-            const decrypted = decryptFise(data, xorCipher, getRulesForDemo('form'), {
+            const decrypted = fiseDecrypt(data, getRulesForDemo('form'), {
                 timestamp: getTimestamp()
             });
 
@@ -32,9 +32,8 @@ export default function registerFormSubmit(fastify) {
                 formId: Math.random().toString(36).substring(2, 11)
             };
 
-            const encrypted = encryptFise(
+            const encrypted = fiseEncrypt(
                 JSON.stringify(confirmation),
-                xorCipher,
                 getRulesForDemo('form'),
                 { timestamp: getTimestamp() }
             );
